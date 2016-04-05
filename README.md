@@ -1,5 +1,5 @@
 # Gravity Pre-submission Confirmation
-A WordPress plugin which adds a quick pre-submission confirmation page to your Graviy forms where users can preview their entered data before it is submitted.
+A WordPress plugin which adds a quick pre-submission confirmation page to your Gravity forms where users can preview their entered data before it is submitted.
 
 Plugin URI: [https://github.com/patilswapnilv/gf-confirmation](https://github.com/patilswapnilv/gf-confirmation)
 
