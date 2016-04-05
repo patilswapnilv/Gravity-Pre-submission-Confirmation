@@ -28,7 +28,7 @@ This is an easy way to add a quick pre-submission confirmation page to your form
 2. Activate the plugin from Admin > Plugins menu.
 3. Add a page at the end of the form for the pre-submission confirmation. You can do this using the Page Break field type.
 3. Add an HTML field from the “Standard Fields” section.
-4. THe easiest way is to add {all_fields} to this section. But if you need more customizatios, go ahead and select the HTML field for editing. The “Content” setting of this field now supports all merge tags like {Name (First):4}, {Question:5}.
+4. The easiest way is to add {all_fields} to this section. But if you need more customizations, go ahead and select the HTML field for editing. The “Content” setting of this field now supports all merge tags like {Name (First):4}, {Question:5}.
 6. Update the Gravity form.
 
 #Contribution
