@@ -1,28 +1,32 @@
 <?php
-/*
-Plugin Name: Gravity Pre-submission Confirmation
-Plugin URI: http://github.com/patilswapnilv/pre-submission-confirmation/
-Description: Adds a quick pre-submission confirmation page to your Graviy forms where users can preview their entered data before it is submitted.
-Version: 0.0.1
-Author: patilswapnilv
-Author URI: http://swapnilpatil.in/
-License: GPLv2
-*/
-
-/*
-
-This program is free software; you can redistribute it and/or modify
-it under the terms of the GNU General Public License (Version 2 - GPLv2) as published by
-the Free Software Foundation.
-
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-
-You should have received a copy of the GNU General Public License
-along with this program; if not, write to the Free Software
-Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+/**
+*    Plugin Name: Gravity Pre-submission Confirmation
+*    Plugin URI: http://github.com/patilswapnilv/pre-submission-confirmation/
+*    Description: Adds a quick pre-submission confirmation page to your Graviy forms where users can preview their entered data before it is submitted.
+*    Author: patilswapnilv
+*    Version: 1.0.1
+*    Author URI: http://swapnilpatil.in
+*    Domain Path: /languages/
+*
+*    Please read: <a href="https://wordpress.org/plugins/gravity-pre-submission-confirmation/installation/">Installation</a>
+*    and <a href="https://wordpress.org/plugins/gravity-pre-submission-confirmation/faq/">FAQ</a>.
+*
+*    PHP version 5
+*
+*    LICENCE: GNU GENERAL PUBLIC LICENSE
+*            Version 3, 29 June 2007
+*    Copyright © 2007 Free Software Foundation, Inc. <http://fsf.org/>
+*    Everyone is permitted to copy and distribute verbatim copies
+*    of this license document, but changing it is not allowed.
+*
+*    Main file, contains the plugin metadata and activation processes
+*
+*    @category Core
+*    @package  gravity-pre-submission-confirmation
+*    @author   Swapnil V. Patil <patilswapnilv@gmail.com>
+*    @license  GPL-3.0+ https://www.gnu.org/licenses/gpl-3.0.en.html
+*    @version  1.0.0
+*    @link     https://github.com/patilswapnilv/gravity-pre-submission-confirmation
 */
 
 class GFPreviewConfirmation {
@@ -75,24 +79,24 @@ class GFPreviewConfirmation {
     * Adds special support for file upload, post image and multi input merge tags.
     */
     public static function preview_special_merge_tags($value, $input_id, $merge_tag, $field) {
-        
+
         // added to prevent overriding :noadmin filter (and other filters that remove fields)
         if( ! $value )
             return $value;
-        
+
         $input_type = RGFormsModel::get_input_type($field);
-        
+
         $is_upload_field = in_array( $input_type, array('post_image', 'fileupload') );
         $is_multi_input = is_array( rgar($field, 'inputs') );
         $is_input = intval( $input_id ) != $input_id;
-        
+
         if( !$is_upload_field && !$is_multi_input )
             return $value;
 
         // if is individual input of multi-input field, return just that input value
         if( $is_input )
             return $value;
-            
+
         $form = RGFormsModel::get_form_meta($field['formId']);
         $lead = self::create_lead($form);
         $currency = GFCommon::get_currency();
@@ -160,12 +164,12 @@ class GFPreviewConfirmation {
     * Retrieves $lead object from class if it has already been created; otherwise creates a new $lead object.
     */
     public static function create_lead( $form ) {
-        
+
         if( empty( self::$lead ) ) {
             self::$lead = GFFormsModel::create_lead( $form );
             self::clear_field_value_cache( $form );
         }
-        
+
         return self::$lead;
     }
 
@@ -185,17 +189,17 @@ class GFPreviewConfirmation {
 
         return $content;
     }
-    
+
     public static function clear_field_value_cache( $form ) {
-        
+
         if( ! class_exists( 'GFCache' ) )
             return;
-            
+
         foreach( $form['fields'] as &$field ) {
             if( GFFormsModel::get_input_type( $field ) == 'total' )
                 GFCache::delete( 'GFFormsModel::get_lead_field_value__' . $field['id'] );
         }
-        
+
     }
 
 }
