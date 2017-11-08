@@ -94,7 +94,7 @@ class GFPreviewConfirmation {
             return $value;
 
         // if is individual input of multi-input field, return just that input value
-        if( $is_input )
+        if(!$is_input )
             return $value;
 
         $form = RGFormsModel::get_form_meta($field['formId']);
